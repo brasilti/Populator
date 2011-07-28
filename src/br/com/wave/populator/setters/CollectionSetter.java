@@ -1,10 +1,10 @@
 package br.com.wave.populator.setters;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import br.com.brasilti.utils.collection.CollectionUtil;
 import br.com.brasilti.utils.reflection.ReflectionUtil;
 import br.com.wave.populator.core.Filler;
 import br.com.wave.populator.exceptions.PopulatorException;
@@ -51,7 +51,7 @@ public class CollectionSetter extends Setter {
 				this.getFiller().fill(value);
 			}
 
-			ReflectionUtil.set(Arrays.asList(value), field, instance);
+			ReflectionUtil.set(CollectionUtil.convert(value), field, instance);
 		} catch (InstantiationException e) {
 			throw new PopulatorException(e.getMessage());
 		} catch (IllegalAccessException e) {

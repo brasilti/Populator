@@ -10,13 +10,13 @@ import br.com.wave.populator.setters.Setter;
 /**
  * Classe que implementa o padrao de projeto Chain of Responsibility para povoar uma determinada instancia.
  * 
+ * @author Benedito Barbosa
+ * @author Christian Peixoto
+ * 
  * @see br.com.wave.populator.setters.PatternSetter
  * @see br.com.wave.populator.setters.FieldPatternSetter
  * @see br.com.wave.populator.setters.CollectionSetter
  * @see br.com.wave.populator.setters.OtherSetter
- * 
- * @author Benedito Barbosa
- * @author Christian Peixoto
  * 
  */
 public class Filler {

@@ -11,11 +11,11 @@ import br.com.wave.populator.exceptions.PopulatorException;
 /**
  * Delega a responsabilidade de povoar instancias, alem da responsabilidade de armazena-las em um repositorio.
  * 
- * @see br.com.wave.populator.core.Filler
- * @see br.com.wave.populator.core.Docker
- * 
  * @author Benedito Barbosa
  * @author Christian Peixoto
+ * 
+ * @see br.com.wave.populator.core.Filler
+ * @see br.com.wave.populator.core.Docker
  * 
  */
 public class Populator {

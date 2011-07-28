@@ -8,7 +8,6 @@ import static org.junit.Assert.assertNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -16,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.brasilti.utils.collection.CollectionUtil;
 import br.com.wave.populator.core.examples.ClasseComAtributoNaoPadrao;
 import br.com.wave.populator.core.examples.ClasseComAtributoNaoPadraoBidirecional;
 import br.com.wave.populator.core.examples.ClasseComAtributoNaoPadraoComAtributoNaoPadrao;
@@ -274,7 +274,7 @@ public class FillerTest {
 		ClasseComAtributoNaoPadrao objetoComAtributoNaoPadrao = new ClasseComAtributoNaoPadrao();
 
 		ClasseComColecaoDeAtributoNaoPadrao instance = new ClasseComColecaoDeAtributoNaoPadrao();
-		instance.setColecao(Arrays.asList(objetoComAtributoNaoPadrao));
+		instance.setColecao(CollectionUtil.convert(objetoComAtributoNaoPadrao));
 
 		this.filler.fill(instance);
 
@@ -298,7 +298,7 @@ public class FillerTest {
 		String stringValue = "Teste";
 
 		ClasseComColecaoDeAtributoPadrao instance = new ClasseComColecaoDeAtributoPadrao();
-		instance.setColecao(Arrays.asList(stringValue));
+		instance.setColecao(CollectionUtil.convert(stringValue));
 
 		this.filler.fill(instance);
 
@@ -362,7 +362,7 @@ public class FillerTest {
 		ClasseComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional objetoComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional = new ClasseComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional();
 
 		ClasseComColecaoDeAtributoNaoPadraoBidirecional instance = new ClasseComColecaoDeAtributoNaoPadraoBidirecional();
-		instance.setColecao(Arrays.asList(objetoComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional));
+		instance.setColecao(CollectionUtil.convert(objetoComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional));
 
 		this.filler.fill(instance);
 
@@ -378,7 +378,7 @@ public class FillerTest {
 		ClasseComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional objetoComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional = new ClasseComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional();
 
 		ClasseComColecaoDeAtributoNaoPadraoBidirecional instance = new ClasseComColecaoDeAtributoNaoPadraoBidirecional();
-		instance.setColecao(Arrays.asList(objetoComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional));
+		instance.setColecao(CollectionUtil.convert(objetoComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional));
 		objetoComAtributoNaoPadraoDeClasseComColecaoDeAtributoNaoPadraoBidirecional.setClasseComColecaoDeAtributoNaoPadraoBidirecional(instance);
 
 		this.filler.fill(instance);
@@ -438,7 +438,7 @@ public class FillerTest {
 		ClasseComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional = new ClasseComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional();
 
 		ClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional instance = new ClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional();
-		instance.setColecao(Arrays.asList(objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional));
+		instance.setColecao(CollectionUtil.convert(objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional));
 
 		this.filler.fill(instance);
 
@@ -462,7 +462,7 @@ public class FillerTest {
 		objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional.setColecao(new ArrayList<ClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional>());
 
 		ClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional instance = new ClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional();
-		instance.setColecao(Arrays.asList(objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional));
+		instance.setColecao(CollectionUtil.convert(objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional));
 
 		this.filler.fill(instance);
 
@@ -485,9 +485,9 @@ public class FillerTest {
 		ClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional instance = new ClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional();
 
 		ClasseComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional = new ClasseComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional();
-		objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional.setColecao(Arrays.asList(instance));
+		objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional.setColecao(CollectionUtil.convert(instance));
 
-		instance.setColecao(Arrays.asList(objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional));
+		instance.setColecao(CollectionUtil.convert(objetoComColecaoDeClasseComColecaoDeAtributoNaoPadraoComColecaoBidirecional));
 
 		this.filler.fill(instance);
 

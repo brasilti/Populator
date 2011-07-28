@@ -5,10 +5,10 @@ import br.com.wave.populator.enums.ErrorEnum;
 /**
  * Exception utilizada para apresentar as mensagens de erro.
  * 
- * @see br.com.wave.populator.enums.ErrorEnum
- * 
  * @author Benedito Barbosa
  * @author Christian Peixoto
+ * 
+ * @see br.com.wave.populator.enums.ErrorEnum
  * 
  */
 public class PopulatorException extends Exception {

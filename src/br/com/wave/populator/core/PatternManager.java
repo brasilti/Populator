@@ -10,10 +10,10 @@ import br.com.wave.populator.enums.FixedPatternEnum;
  * Classe que implementa o padrao de projeto Singleton para gerenciar padroes de instancias. Padrao de instancia e a instancia que sera usada na
  * ocorrencia de sua classe.
  * 
- * @see br.com.wave.populator.enums.FixedPatternEnum
- * 
  * @author Benedito Barbosa
  * @author Christian Peixoto
+ * 
+ * @see br.com.wave.populator.enums.FixedPatternEnum
  * 
  */
 public class PatternManager {

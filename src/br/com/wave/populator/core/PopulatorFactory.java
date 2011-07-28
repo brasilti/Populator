@@ -6,10 +6,10 @@ import org.jboss.weld.environment.se.WeldContainer;
 /**
  * Classe que implementa o padrao de projeto Factory Method para criacao de objetos da classe Populator.
  * 
- * @see br.com.wave.populator.core.Populator
- * 
  * @author Benedito Barbosa
  * @author Christian Peixoto
+ * 
+ * @see br.com.wave.populator.core.Populator
  * 
  */
 public class PopulatorFactory {
