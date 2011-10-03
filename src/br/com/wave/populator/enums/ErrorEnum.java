@@ -9,7 +9,8 @@ public enum ErrorEnum {
 	NULL("error.message.null"),
 	NOT_SERIALIZABLE("error.message.notSerializable"),
 	NOT_PERSISTENT_FIELDS("error.message.notPersistentFields"),
-	TYPE_UNEXPECTED("error.message.typeUnexpected");
+	UNEXPECTED_TYPE("error.message.unexpectedType"),
+	EMPTY_ENUM("error.message.emptyEnum");
 
 	private String key;
 

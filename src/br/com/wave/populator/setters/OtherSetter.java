@@ -19,17 +19,18 @@ public class OtherSetter extends Setter {
 		List<Field> fields = ReflectionUtil.getPersistentFields(instance.getClass());
 		for (Field field : fields) {
 			Class<?> klass = field.getType();
-			boolean isNotPattern = !this.getManager().hasPattern(klass);
+			boolean isNotEnum = !klass.isEnum();
 			boolean isNotCollection = !ReflectionUtil.isCollection(klass);
+			boolean isNotPattern = !this.getManager().hasPattern(klass);
 
-			if (isNotPattern && isNotCollection) {
+			if (isNotEnum && isNotCollection && isNotPattern) {
 				Object value = ReflectionUtil.get(field, instance);
 				if (value == null) {
 					try {
 						value = klass.newInstance();
 						ReflectionUtil.set(value, field, instance);
 					} catch (InstantiationException e) {
-						throw new PopulatorException(ErrorEnum.TYPE_UNEXPECTED, field.getName(), instance.getClass().getName());
+						throw new PopulatorException(ErrorEnum.UNEXPECTED_TYPE, field.getName(), instance.getClass().getName());
 					} catch (IllegalAccessException e) {
 						throw new PopulatorException(e.getMessage());
 					}
@@ -38,6 +39,8 @@ public class OtherSetter extends Setter {
 				this.getFiller().fill(value);
 			}
 		}
+
+		this.getSuccessor().set(instance);
 	}
 
 }

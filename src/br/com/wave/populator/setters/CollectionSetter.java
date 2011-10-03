@@ -1,6 +1,7 @@
 package br.com.wave.populator.setters;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,18 +21,28 @@ public class CollectionSetter extends Setter {
 		List<Field> fields = ReflectionUtil.getPersistentFields(instance.getClass());
 		for (Field field : fields) {
 			Class<?> klass = field.getType();
-			boolean isNotPattern = !this.getManager().hasPattern(klass);
 			boolean isCollection = ReflectionUtil.isCollection(klass);
 
-			if (isNotPattern && isCollection) {
-				Collection<?> collection = (Collection<?>) ReflectionUtil.get(field, instance);
+			if (isCollection) {
+				Collection<?> elements = (Collection<?>) ReflectionUtil.get(field, instance);
 
-				if (collection == null || collection.isEmpty()) {
-					this.addElements(field, instance);
+				if (elements == null || elements.isEmpty()) {
+					Object value = this.getValueOfElement(field);
+					ReflectionUtil.set(CollectionUtil.convert(value), field, instance);
 				} else {
-					for (Object element : collection) {
-						this.getFiller().fill(element);
+					List<Object> targetCollection = new ArrayList<Object>();
+
+					for (Object element : elements) {
+						if (element == null) {
+							element = this.getValueOfElement(field);
+						} else {
+							this.getFiller().fill(element);
+						}
+
+						targetCollection.add(element);
 					}
+
+					ReflectionUtil.set(targetCollection, field, instance);
 				}
 			}
 		}
@@ -39,24 +50,24 @@ public class CollectionSetter extends Setter {
 		this.getSuccessor().set(instance);
 	}
 
-	private <T> void addElements(Field field, T instance) throws PopulatorException {
-		Class<?> typeOfElements = ReflectionUtil.getTypeOfElements(field);
+	private <T> Object getValueOfElement(Field field) throws PopulatorException {
+		Object value = null;
 
 		try {
-			Object value = null;
+			Class<?> typeOfElements = ReflectionUtil.getTypeOfElements(field);
 			if (this.getManager().hasPattern(typeOfElements)) {
 				value = this.getManager().getValue(typeOfElements);
 			} else {
 				value = typeOfElements.newInstance();
 				this.getFiller().fill(value);
 			}
-
-			ReflectionUtil.set(CollectionUtil.convert(value), field, instance);
 		} catch (InstantiationException e) {
 			throw new PopulatorException(e.getMessage());
 		} catch (IllegalAccessException e) {
 			throw new PopulatorException(e.getMessage());
 		}
+
+		return value;
 	}
 
 }

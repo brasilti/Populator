@@ -6,9 +6,9 @@ public class ClasseComAtributoNaoPadraoComAtributoNaoPadrao implements Serializa
 
 	private static final long serialVersionUID = 1L;
 
-	private ClasseComAtributoNaoPadrao classeComAtributoNaoPadrao;
+	private ClasseComAtributo classeComAtributoNaoPadrao;
 
-	public ClasseComAtributoNaoPadrao getClasseComAtributoNaoPadrao() {
+	public ClasseComAtributo getClasseComAtributoNaoPadrao() {
 		return classeComAtributoNaoPadrao;
 	}
 

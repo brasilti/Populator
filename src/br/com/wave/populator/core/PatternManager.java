@@ -1,5 +1,6 @@
 package br.com.wave.populator.core;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -7,8 +8,7 @@ import java.util.Map;
 import br.com.wave.populator.enums.FixedPatternEnum;
 
 /**
- * Classe que implementa o padrao de projeto Singleton para gerenciar padroes de instancias. Padrao de instancia e a instancia que sera usada na
- * ocorrencia de sua classe.
+ * Classe que implementa o padrao de projeto Singleton para gerenciar padroes de instancias. Padrao de instancia e a instancia que sera usada na ocorrencia de sua classe.
  * 
  * @author Benedito Barbosa
  * @author Christian Peixoto
@@ -56,8 +56,8 @@ public class PatternManager {
 	 * @param klass
 	 * @param instance
 	 */
-	public void addPattern(Class<?> klass, Object instance) {
-		this.addedPatterns.put(klass, instance);
+	public void addPattern(Object instance) {
+		this.addedPatterns.put(instance.getClass(), instance);
 	}
 
 	/**
@@ -91,13 +91,8 @@ public class PatternManager {
 		this.addedPatterns = new LinkedHashMap<Class<?>, Object>();
 	}
 
-	/**
-	 * Retorna todos os padroes definidos.
-	 * 
-	 * @return Mapa vazio se nao houver padroes.
-	 */
-	public Map<Class<?>, Object> getAddedPatterns() {
-		return addedPatterns;
+	public Collection<Object> getValues() {
+		return this.addedPatterns.values();
 	}
 
 }

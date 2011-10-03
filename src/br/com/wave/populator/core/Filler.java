@@ -1,10 +1,13 @@
 package br.com.wave.populator.core;
 
+import javax.inject.Inject;
+
+import br.com.brasilti.utils.reflection.ReflectionUtil;
 import br.com.wave.populator.exceptions.PopulatorException;
 import br.com.wave.populator.setters.CollectionSetter;
-import br.com.wave.populator.setters.FieldPatternSetter;
+import br.com.wave.populator.setters.EnumSetter;
+import br.com.wave.populator.setters.FixedSetter;
 import br.com.wave.populator.setters.OtherSetter;
-import br.com.wave.populator.setters.PatternSetter;
 import br.com.wave.populator.setters.Setter;
 
 /**
@@ -13,31 +16,39 @@ import br.com.wave.populator.setters.Setter;
  * @author Benedito Barbosa
  * @author Christian Peixoto
  * 
- * @see br.com.wave.populator.setters.PatternSetter
- * @see br.com.wave.populator.setters.FieldPatternSetter
- * @see br.com.wave.populator.setters.CollectionSetter
- * @see br.com.wave.populator.setters.OtherSetter
+ * @see FixedSetter
+ * @see FixedSetter
+ * @see EnumSetter
+ * @see CollectionSetter
+ * @see OtherSetter
  * 
  */
 public class Filler {
 
-	private Setter patternSetter;
+	@Inject
+	private Validator validator;
 
-	private Setter fieldPatternSetter;
+	private PatternManager manager;
+
+	private Setter enumSetter;
 
 	private Setter collectionSetter;
 
 	private Setter otherSetter;
 
+	private Setter patternSetter;
+
 	public Filler() {
-		this.patternSetter = new PatternSetter(this);
-		this.fieldPatternSetter = new FieldPatternSetter(this);
+		this.manager = PatternManager.getInstance();
+
+		this.enumSetter = new EnumSetter(this);
 		this.collectionSetter = new CollectionSetter(this);
 		this.otherSetter = new OtherSetter(this);
+		this.patternSetter = new FixedSetter(this);
 
-		this.patternSetter.setSuccessor(this.fieldPatternSetter);
-		this.fieldPatternSetter.setSuccessor(this.collectionSetter);
+		this.enumSetter.setSuccessor(this.collectionSetter);
 		this.collectionSetter.setSuccessor(this.otherSetter);
+		this.otherSetter.setSuccessor(this.patternSetter);
 	}
 
 	/**
@@ -47,7 +58,19 @@ public class Filler {
 	 * @throws PopulatorException
 	 */
 	public <T> void fill(T instance) throws PopulatorException {
-		this.patternSetter.set(instance);
+		this.validator.validate(instance);
+
+		Class<?> klass = instance.getClass();
+		if (this.manager.hasPattern(klass)) {
+			Object value = this.manager.getValue(klass);
+
+			ReflectionUtil.copy(value, instance);
+		} else {
+			this.manager.addPattern(instance);
+
+			this.enumSetter.set(instance);
+		}
+
 	}
 
 }

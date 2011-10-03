@@ -1,10 +1,7 @@
 package br.com.wave.populator.core;
 
-import java.io.Serializable;
-
 import javax.inject.Inject;
 
-import br.com.brasilti.utils.reflection.ReflectionUtil;
 import br.com.wave.populator.enums.ErrorEnum;
 import br.com.wave.populator.exceptions.PopulatorException;
 
@@ -25,6 +22,12 @@ public class Populator {
 
 	@Inject
 	private Docker docker;
+
+	private PatternManager manager;
+
+	public Populator() {
+		this.manager = PatternManager.getInstance();
+	}
 
 	/**
 	 * Cria e povoa uma instancia de uma determinada classe. Em seguida, essa instancia e armazenada em um repositorio.
@@ -59,32 +62,11 @@ public class Populator {
 	 *             quando a instancia for nula ou nao for serializavel.
 	 */
 	public <T> void populate(T instance) throws PopulatorException {
-		if (instance == null) {
-			throw new PopulatorException(ErrorEnum.NULL);
-		}
-
-		if (!ReflectionUtil.implementz(instance.getClass(), Serializable.class)) {
-			throw new PopulatorException(ErrorEnum.NOT_SERIALIZABLE, instance.getClass().getName());
-		}
-
 		this.filler.fill(instance);
 
-		this.docker.addInstances();
-	}
+		this.docker.persistInstances();
 
-	/**
-	 * Define que a instancia de uma classe sera usada em cada ocorrencia da classe.
-	 * 
-	 * @see br.com.wave.populator.core.PatternManager
-	 * 
-	 * @param klass
-	 * @param instance
-	 * @throws PopulatorException
-	 */
-	public <T> void addPattern(Class<?> klass, T instance) throws PopulatorException {
-		this.populate(instance);
-
-		PatternManager.getInstance().addPattern(klass, instance);
+		this.manager.restore();
 	}
 
 	/**
